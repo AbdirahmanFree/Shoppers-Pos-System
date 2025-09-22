@@ -13,3 +13,18 @@ create table transaction (
    constraint fk_tx_customer foreign key ( customer_id )
       references customer ( customer_id )
 )
+
+create table lineitem (
+   transaction_id   number not null,
+   line_no          number not null,
+   product_id       number not null,
+   quantity         number not null check ( quantity > 0 ),
+   discount_applied number(5,2) default 0 check ( discount_applied >= 0 ),
+   constraint pk_lineitem primary key ( transaction_id,
+                                        line_no ),
+   constraint fk_li_tx foreign key ( transaction_id )
+      references transaction ( transaction_id )
+         on delete cascade,
+   constraint fk_li_prod foreign key ( product_id )
+      references product ( product_id )
+);
