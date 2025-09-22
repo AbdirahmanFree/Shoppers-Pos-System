@@ -28,3 +28,17 @@ create table lineitem (
    constraint fk_li_prod foreign key ( product_id )
       references product ( product_id )
 );
+
+create table inventory (
+   inventory_id      number primary key,
+   store_id          number not null,
+   product_id        number not null,
+   reorder_threshold number not null check ( reorder_threshold >= 0 ),
+   stock_level       number not null check ( stock_level >= 0 ),
+   constraint uq_inventory_store_prod unique ( store_id,
+                                               product_id ),
+   constraint fk_inv_store foreign key ( store_id )
+      references store ( store_id ),
+   constraint fk_inv_prod foreign key ( product_id )
+      references product ( product_id )
+);
