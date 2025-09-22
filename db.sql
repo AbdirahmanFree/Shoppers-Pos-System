@@ -42,3 +42,9 @@ create table inventory (
    constraint fk_inv_prod foreign key ( product_id )
       references product ( product_id )
 );
+
+create table supplier (
+   supplier_id   number primary key,
+   supplier_name varchar2(100) not null,
+   contact_info  varchar2(200)
+);
