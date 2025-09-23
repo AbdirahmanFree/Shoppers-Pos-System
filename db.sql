@@ -1,5 +1,46 @@
+create table store (
+   store_id   number
+      generated always as identity,
+   store_name varchar2(100) not null,
+   address    varchar2(200),
+   constraint pk_store primary key ( store_id )
+);
+
+create table product (
+   product_id       number
+      generated always as identity,
+   product_name     varchar2(100) not null,
+   product_category varchar2(50),
+   price            number(10,2) default 0,
+   stock_quantity   number default 0,
+   constraint pk_product primary key ( product_id )
+);
+
+create table customer (
+   customer_id    number
+      generated always as identity,
+   customer_name  varchar2(100) not null,
+   phone_number   varchar2(15),
+   email          varchar2(100),
+   loyalty_points number default 0,
+   constraint pk_customer primary key ( customer_id )
+);
+
+create table employee (
+   employee_id   number
+      generated always as identity,
+   employee_name varchar2(100) not null,
+   role          varchar2(50) not null,
+   hire_date     date not null,
+   constraint pk_employee primary key ( employee_id )
+);
+
+
+
+
 create table transaction (
-   transaction_id   number primary key not null,
+   transaction_id   number primary key not null
+      generated always as identity,
    employee_id      number not null,
    store_id         number not null,
    customer_id      number not null,
@@ -15,7 +56,8 @@ create table transaction (
 )
 
 create table lineitem (
-   transaction_id   number not null,
+   transaction_id   number not null
+      generated always as identity,
    line_no          number not null,
    product_id       number not null,
    quantity         number not null check ( quantity > 0 ),
@@ -30,7 +72,8 @@ create table lineitem (
 );
 
 create table inventory (
-   inventory_id      number primary key,
+   inventory_id      number primary key
+      generated always as identity,
    store_id          number not null,
    product_id        number not null,
    reorder_threshold number not null check ( reorder_threshold >= 0 ),
@@ -44,7 +87,10 @@ create table inventory (
 );
 
 create table supplier (
-   supplier_id   number primary key,
+   supplier_id   number primary key
+      generated always as identity,
    supplier_name varchar2(100) not null,
-   contact_info  varchar2(200)
+   contact_info  varchar2(200),
+   constraint fk_sup foreign key ( product_id )
+      references product ( product_id )
 );
