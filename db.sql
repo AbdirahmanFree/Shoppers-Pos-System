@@ -78,3 +78,4 @@ create table supplier (
    constraint pk_supplier primary key ( supplier_id )
 );
 
+
