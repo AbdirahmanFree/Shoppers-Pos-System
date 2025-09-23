@@ -75,7 +75,11 @@ create table supplier (
    supplier_id   number generated always as identity,
    supplier_name varchar2(100) not null,
    contact_info  varchar2(200),
-   constraint pk_supplier primary key ( supplier_id )
+   product_id    number not null,
+   constraint pk_supplier primary key ( supplier_id ),
+   constraint fk_supplier_product foreign key ( product_id ) references product (product_id)
 );
 
 
+Select table_name
+from USER_TABLES;
