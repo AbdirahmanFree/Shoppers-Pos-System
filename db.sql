@@ -46,10 +46,10 @@ create table transaction (
    constraint fk_tx_employee foreign key ( employee_id ) references employee ( employee_id ),
    constraint fk_tx_store foreign key ( store_id ) references store ( store_id ),
    constraint fk_tx_customer foreign key ( customer_id ) references customer ( customer_id )
-)
+);
 
 create table lineitem (
-   transaction_id   number generated always as identity,
+   transaction_id   number not null,
    line_no          number not null,
    product_id       number not null,
    quantity         number not null check ( quantity > 0 ),
@@ -65,7 +65,7 @@ create table inventory (
    product_id        number not null,
    reorder_threshold number not null check ( reorder_threshold >= 0 ),
    stock_level       number not null check ( stock_level >= 0 ),
-   constraint pk_tansaction primary key ( transaction_id ),
+   constraint pk_inventory primary key ( inventory_id ),
    constraint uq_inventory_store_prod unique ( store_id, product_id ),
    constraint fk_inv_store foreign key ( store_id ) references store ( store_id ),
    constraint fk_inv_prod foreign key ( product_id ) references product ( product_id )
@@ -75,6 +75,9 @@ create table supplier (
    supplier_id   number generated always as identity,
    supplier_name varchar2(100) not null,
    contact_info  varchar2(200),
-
-   constraint pk_supplier primary key ( supplier )
+   constraint pk_supplier primary key ( supplier_id )
 );
+
+SELECT table_name
+FROM   user_tables
+ORDER  BY table_name;
