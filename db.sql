@@ -78,6 +78,3 @@ create table supplier (
    constraint pk_supplier primary key ( supplier_id )
 );
 
-SELECT table_name
-FROM   user_tables
-ORDER  BY table_name;
