@@ -81,5 +81,4 @@ create table supplier (
 );
 
 
-Select table_name
-from USER_TABLES;
+
